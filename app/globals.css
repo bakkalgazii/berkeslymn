@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -12,15 +12,101 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  background-color: #050505;
+}
+
+/* Subtle animated tech background */
+.bg-animated {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background-color: #030305;
+  overflow: hidden;
+}
+
+.bg-animated::before,
+.bg-animated::after {
+  content: "";
+  position: absolute;
+  width: 150vw;
+  height: 150vh;
+  top: -25vh;
+  left: -25vw;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(20, 0, 40, 0.6) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(0, 40, 60, 0.5) 0%, transparent 30%);
+  animation: move-bg 25s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+.bg-animated::after {
+  background: 
+    radial-gradient(circle at 80% 80%, rgba(10, 50, 40, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 10% 90%, rgba(60, 0, 80, 0.3) 0%, transparent 40%);
+  animation: move-bg 35s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes move-bg {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-3%, 3%) scale(1.05); }
+  100% { transform: translate(3%, -3%) scale(1); }
+}
+
+/* Circuit grid effect */
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+}
+
+/* UI Elements */
+.glass-card {
+  background: rgba(15, 15, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.glass-button:active {
+  transform: translateY(1px);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #00f0ff, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
